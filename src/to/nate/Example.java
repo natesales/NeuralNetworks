@@ -1,13 +1,15 @@
 package to.nate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Example {
 
-    private int category;
-    private ArrayList<Double> attributes = new ArrayList<>();
+    int category;
+    ArrayList<Double> attributes;
 
-    public Example(int category, double[] data) {
-
+    Example(int providedCategory, ArrayList<Double> data) {
+        category = providedCategory;
+        attributes = data;
     }
 }

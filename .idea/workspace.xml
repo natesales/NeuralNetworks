@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c02385e3-9e5f-432c-a8c6-3080cc9bae3a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/to/nate/Example.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/to/nate/NeuralNetwork.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/to/nate/Neuron.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/Example.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/NeuralNetwork.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/Neuron.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/Example.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/Example.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/to/nate/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/NeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/NeuralNetwork.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/Neuron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/Neuron.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +30,11 @@
   </component>
   <component name="ProjectId" id="1ScAYVj7DJUG5NsqmwJvs0H1jLx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -39,25 +43,19 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../arachnid/website" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="project.structure.side.proportion" value="0.264" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/to/nate" />
+    </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+    <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="to.nate.Main" />
       <module name="NeuralNetworks" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -67,11 +65,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <item itemvalue="Application.Main" />
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
-    </recent_temporary>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -99,7 +104,12 @@
       <workItem from="1573697550721" duration="378000" />
       <workItem from="1573697958442" duration="3923000" />
       <workItem from="1574098950004" duration="3289000" />
-      <workItem from="1574197779501" duration="817000" />
+      <workItem from="1574197779501" duration="4655000" />
+      <workItem from="1574351938815" duration="4015000" />
+      <workItem from="1574367296623" duration="385000" />
+      <workItem from="1574447699921" duration="4569000" />
+      <workItem from="1575483972710" duration="267000" />
+      <workItem from="1575484270405" duration="1128000" />
     </task>
     <servers />
   </component>
@@ -119,15 +129,26 @@
       </map>
     </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/to/nate/NeuralNetwork.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="WindowStateProjectService">
+    <state x="808" y="408" width="400" height="222" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1575485048718">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="808" y="408" width="400" height="222" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1575485048718" />
+    <state x="986" y="187" width="824" height="690" key="#com.intellij.openapi.projectRoots.ui.ProjectJdksEditor" timestamp="1575484380096">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="986" y="187" width="824" height="690" key="#com.intellij.openapi.projectRoots.ui.ProjectJdksEditor/0.24.1920.1056@0.24.1920.1056" timestamp="1575484380096" />
+    <state x="209" y="393" width="424" height="490" key="FileChooserDialogImpl" timestamp="1575485106312">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="209" y="393" width="424" height="490" key="FileChooserDialogImpl/0.24.1920.1056@0.24.1920.1056" timestamp="1575485106312" />
+    <state x="673" y="195" width="1031" height="736" key="SettingsEditor" timestamp="1575485140356">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="673" y="195" width="1031" height="736" key="SettingsEditor/0.24.1920.1056@0.24.1920.1056" timestamp="1575485140356" />
+    <state x="734" y="463" width="451" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575485270392">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="734" y="463" width="451" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1920.1056@0.24.1920.1056" timestamp="1575485270392" />
   </component>
 </project>

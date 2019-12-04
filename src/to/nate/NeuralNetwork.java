@@ -1,8 +1,6 @@
 package to.nate;
 
-import java.lang.annotation.ElementType;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class NeuralNetwork {
 
@@ -16,16 +14,16 @@ public class NeuralNetwork {
     private ArrayList<Neuron> hidden = new ArrayList<Neuron>();
     private ArrayList<Neuron> output = new ArrayList<Neuron>();
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_BLUE = "\u001B[34m";
+    static final String ANSI_RESET = "\u001B[0m";
+    static final String ANSI_RED = "\u001B[31m";
+    static final String ANSI_GREEN = "\u001B[32m";
+    static final String ANSI_BLUE = "\u001B[34m";
 
-    public static final String INFO = ANSI_BLUE + "[ℹ] " + ANSI_RESET;
-    public static final String SUCCESS = ANSI_GREEN + "✓" + ANSI_RESET;
-    public static final String FAIL = ANSI_RED + "X" + ANSI_RESET;
+    static final String INFO = ANSI_BLUE + "[ℹ] " + ANSI_RESET;
+    static final String SUCCESS = ANSI_GREEN + "✓" + ANSI_RESET;
+    static final String FAIL = ANSI_RED + "X" + ANSI_RESET;
 
-    public NeuralNetwork(int numInputs, int numHiddens, int numOutputs) {
+    NeuralNetwork(int numInputs, int numHiddens, int numOutputs) {
         numInput = numInputs;
         numHidden = numHiddens;
         numOutput = numOutputs;
@@ -41,17 +39,34 @@ public class NeuralNetwork {
      * @param example The example
      * @return category that example belongs to
      */
-    int classifyOneExample(Example example) {
-        for (Neuron inputi : input) { // for each input i:
-            // compute the product of inputi × weighti
-            // compute the sum of the products
-            // apply the activation function to the sum
-            // the answer is the ActualResult computed by the perceptron
+    private int classifyOneExample(Example example) {
 
-          double errorSignal = (CorrectResult - ActualResult) * ActualResult * (1 - ActualResult);
+        ArrayList<Double> outputVals = new ArrayList<Double>(); // Output values
 
-          double weighti = weighti + errorSignal * inputi * learningRate;
+        for (Neuron inputi : input) { // Load data into the inputs
+            inputi.recentOutput = example.category;
+
+            for (Neuron hiddeni : hidden) {
+                hiddeni.inputs.add(inputi.recentOutput);
+                hiddeni.calculateResult();
+
+                for (Neuron outputi : output) {
+                    outputi.inputs.add(hiddeni.recentOutput);
+                    outputi.calculateResult();
+                }
+            }
         }
+
+        double biggestOutputSoFar = Double.NEGATIVE_INFINITY;
+        int biggestCategorySoFar = 0;
+        for (double output : outputVals) {
+            if (output > biggestOutputSoFar) {
+                biggestOutputSoFar = output;
+                biggestCategorySoFar = outputCategory; // TODO: Where does outputCategory go?
+            }
+        }
+
+        return biggestCategorySoFar; // In reality this isn't the biggest category SO FAR, it's the biggest category of all.
     }
 
     /**
@@ -68,25 +83,12 @@ public class NeuralNetwork {
      * Takes one pre-categorized example, classifies it, and then learns by modifying the network's weights
      *
      * @param example One pre-categorized example.
+     * @return boolean Did it get it right?
      */
-    void learnOneExample(Example example) {
+    boolean learnOneExample(Example example) {
         classifyOneExample(example);
-    }
 
-    /**
-     * Calculate sum of Doubles in a given ArrayList.
-     *
-     * @param arraylist
-     */
-    static double sumOf(ArrayList<Double> arraylist) {
-        double sum = 0;
-
-        for (Double i : arraylist) {
-            sum += i;
-        }
-
-        sum /= arraylist.size();
-        return sum;
+        return true; //TODO
     }
 
     /**
@@ -100,14 +102,34 @@ public class NeuralNetwork {
      */
     void learnFromExamples(ArrayList<Example> trainingExamples, double learningRate, int desiredSuccessRate, int maxEpochsUntilReboot, int epochsBetweenMessages) {
         ArrayList<Float> products = new ArrayList<Float>();
-        double currentSuccessRate = Double.POSITIVE_INFINITY;
+        double currentSuccessRate = 0;
         int epochs = 0;
+        int epochsUntilNextMessage = epochsBetweenMessages;
+        int epochsUntilReboot = maxEpochsUntilReboot;
 
-        while (desiredSuccessRate < currentSuccessRate) { // repeat until training is complete:
-            for (Example examplei : trainingExamples) {   //    repeat for each examplei: (run the perceptron on examplei)
+        do {
+            for (Example examplei : trainingExamples) {   //  repeat for each examplei: (run the perceptron on examplei)
                 learnOneExample(examplei);
             }
-        }
+
+            if (epochsUntilNextMessage == 0) {
+                System.out.println(INFO + "Running. Current Success Rate: " + currentSuccessRate);
+                epochsUntilNextMessage = epochsBetweenMessages;
+            } else {
+                epochsUntilNextMessage--;
+            }
+
+            if (epochsUntilReboot == 0) { // Then reset everything.
+                currentSuccessRate = 0;
+                epochs = 0;
+                epochsUntilNextMessage = epochsBetweenMessages;
+                epochsUntilReboot = maxEpochsUntilReboot;
+            } else {
+                epochsUntilReboot--;
+            }
+
+            epochs++;
+        } while (currentSuccessRate < desiredSuccessRate); //TODO: Update currentSuccessRate
     }
 
     /**
@@ -115,17 +137,20 @@ public class NeuralNetwork {
      *
      * @param examples The examples.
      */
-    void displayTestAccuracy(ArrayList examples) {
-        System.out.println(INFO + " running...");
+    void displayTestAccuracy(ArrayList<Example> examples) {
+        System.out.println(INFO + " running..."); //TODO
     }
 
     /**
      * Takes a list of pre-categorized training examples (and maybe a list of pre-categorized validation examples), and a desired accuracy and/or time limit.
      * It repeatedly learns from the training examples until a termination condition is reached.
      *
-     * @param example Pre-categorized list of testing examples.
+     * @param examples Pre-categorized list of testing examples.
      */
-    void learnManyExamples(Example[] example) {
+    void learnManyExamples(Example[] examples) {
+        for (Example e : examples) {
+            learnOneExample(e); // TODO
+        }
     }
 
     /**
@@ -144,18 +169,17 @@ public class NeuralNetwork {
      */
     private void buildNetwork() {
         for (int i = 0; i < numInput; i++) {
-            input.add(new Neuron()); // Fill up hidden with empty neurons
+            input.add(new Neuron(0)); // Fill up with empty neurons
         }
 
         for (int i = 0; i < numHidden; i++) {
-            hidden.add(new Neuron()); // Fill up hidden with empty neurons
+            hidden.add(new Neuron(numInput)); // Fill up with empty neurons
         }
 
         for (int j = 0; j < numOutput; j++) {
-            output.add(new Neuron()); // Fill up hidden with empty neurons
+            output.add(new Neuron(numHidden)); // Fill up with empty neurons
         }
 
-        initRandWeights(input);
         initRandWeights(hidden);
         initRandWeights(output);
     }
