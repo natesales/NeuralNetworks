@@ -41,28 +41,23 @@ public class NeuralNetwork {
      */
     private int classifyOneExample(Example example) {
 
-        ArrayList<Double> outputVals = new ArrayList<Double>(); // Output values
+        ArrayList<Double> hiddenOutputs = new ArrayList<Double>();
+        ArrayList<Double> outputOutputs = new ArrayList<Double>(); // The outputs from the output layer. yeah...
 
-        for (Neuron inputi : input) { // Load data into the inputs
-            inputi.recentOutput = example.category;
+        for (Neuron hiddeni : hidden) {
+            hiddenOutputs.add(hiddeni.calculateResult(example.attributes));
+        }
 
-            for (Neuron hiddeni : hidden) {
-                hiddeni.inputs.add(inputi.recentOutput);
-                hiddeni.calculateResult();
-
-                for (Neuron outputi : output) {
-                    outputi.inputs.add(hiddeni.recentOutput);
-                    outputi.calculateResult();
-                }
-            }
+        for (Neuron outputi : output) {
+            outputOutputs.add(outputi.calculateResult(hiddenOutputs));
         }
 
         double biggestOutputSoFar = Double.NEGATIVE_INFINITY;
         int biggestCategorySoFar = 0;
-        for (double output : outputVals) {
+        for (double output : outputOutputs) {
             if (output > biggestOutputSoFar) {
                 biggestOutputSoFar = output;
-                biggestCategorySoFar = outputCategory; // TODO: Where does outputCategory go?
+                biggestCategorySoFar = example.category;
             }
         }
 
@@ -76,7 +71,7 @@ public class NeuralNetwork {
      * @return percent of accuracy
      */
     double calculateAccuracy(ArrayList<Example> examples) {
-        return 0.5;
+        return 0.5; // TODO
     }
 
     /**
@@ -86,26 +81,61 @@ public class NeuralNetwork {
      * @return boolean Did it get it right?
      */
     boolean learnOneExample(Example example) {
-        classifyOneExample(example);
+        int prediction = classifyOneExample(example);
 
-        return true; //TODO
+        // Calculate error signals
+
+        for (Neuron o : output) {
+            int correctOutput;
+
+            if (example.category == o.index) {
+                correctOutput = 1;
+            } else {
+                correctOutput = 0;
+            }
+
+            o.errorSignal = (correctOutput - o.recentOutput) * o.recentOutput * (1 - o.recentOutput);
+        }
+
+        for (Neuron h : hidden) {
+            double runningErrorSignal;
+            for (Neuron o : output) {
+                runningErrorSignal += o.errorSignal * outputWeight h -> o;
+            }
+
+            runningErrorSignal *= hiddenResult h * (1 - hiddenResult h);
+            h.errorSignal = runningErrorSignal;
+        }
+
+        // Update the weights
+
+        for (Neuron o : output) {
+            o.weights.get(/*TODO*/) = o.weights.get(/*TODO*/) + o.errorSignal * hiddenResult * learningRate;
+        }
+
+        for (Neuron h : hidden) {
+            h.weights.get(/*TODO*/) = h.weights.get(/*TODO*/) + h.errorSignal * inputi * learningRate;
+        }
+
+        return true; // TODO
     }
 
     /**
      * Learn from a given list of examples
      *
      * @param trainingExamples      The list of examples to train on.
-     * @param learningRate          Value that is multiplied each time. (How fast it learns)
+     * @param providedLearningRate  Value that is multiplied each time. (How fast it learns)
      * @param desiredSuccessRate    The percentage that we will achieve before quitting.
      * @param maxEpochsUntilReboot  How many epochs will go by before we reset everything.
      * @param epochsBetweenMessages How many epochs will go by before we print out a status message.
      */
-    void learnFromExamples(ArrayList<Example> trainingExamples, double learningRate, int desiredSuccessRate, int maxEpochsUntilReboot, int epochsBetweenMessages) {
+    void learnFromExamples(ArrayList<Example> trainingExamples, double providedLearningRate, int desiredSuccessRate, int maxEpochsUntilReboot, int epochsBetweenMessages) {
         ArrayList<Float> products = new ArrayList<Float>();
         double currentSuccessRate = 0;
         int epochs = 0;
         int epochsUntilNextMessage = epochsBetweenMessages;
         int epochsUntilReboot = maxEpochsUntilReboot;
+        learningRate = providedLearningRate;
 
         do {
             for (Example examplei : trainingExamples) {   //  repeat for each examplei: (run the perceptron on examplei)
@@ -129,7 +159,7 @@ public class NeuralNetwork {
             }
 
             epochs++;
-        } while (currentSuccessRate < desiredSuccessRate); //TODO: Update currentSuccessRate
+        } while (currentSuccessRate < desiredSuccessRate); // TODO: Update currentSuccessRate
     }
 
     /**
@@ -159,8 +189,8 @@ public class NeuralNetwork {
      * @param neurons ArrayList of neurons
      */
     private static void initRandWeights(ArrayList<Neuron> neurons) {
-        for (int i = 0; i < neurons.size(); i++) {
-            neurons.get(i).initRandWeights();
+        for (Neuron neuron : neurons) {
+            neuron.initRandWeights();
         }
     }
 
@@ -169,15 +199,15 @@ public class NeuralNetwork {
      */
     private void buildNetwork() {
         for (int i = 0; i < numInput; i++) {
-            input.add(new Neuron(0)); // Fill up with empty neurons
+            input.add(new Neuron(0, i)); // Fill up with empty neurons
         }
 
         for (int i = 0; i < numHidden; i++) {
-            hidden.add(new Neuron(numInput)); // Fill up with empty neurons
+            hidden.add(new Neuron(numInput, i)); // Fill up with empty neurons
         }
 
-        for (int j = 0; j < numOutput; j++) {
-            output.add(new Neuron(numHidden)); // Fill up with empty neurons
+        for (int i = 0; i < numOutput; i++) {
+            output.add(new Neuron(numHidden, i)); // Fill up with empty neurons
         }
 
         initRandWeights(hidden);

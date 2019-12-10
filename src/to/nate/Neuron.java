@@ -3,8 +3,6 @@ package to.nate;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static to.nate.Utils.sumOf;
-
 class Neuron {
 
     double recentOutput;
@@ -12,12 +10,14 @@ class Neuron {
     double bias;
 
     int inputLength;
+    int index;
 
     ArrayList<Double> weights = new ArrayList<Double>(); // These are the input weights.
-    ArrayList<Double> inputs = new ArrayList<Double>();
+    ArrayList<Double> inputs;
 
-    Neuron(int providedInputLength) {
-        inputLength = providedInputLength;
+    Neuron(int inputLength, int index) {
+        this.inputLength = inputLength;
+        this.index = index;
     }
 
     /**
@@ -55,7 +55,8 @@ class Neuron {
     /**
      * Calculate the final output
      */
-    void calculateResult() { // TODO: Bias needs to be already set.
+    double calculateResult(ArrayList<Double> providedInputs) { // TODO: Bias needs to be already set.
+        inputs = providedInputs;
         double product = 0;
 
         for (int i = 0; i < inputs.size(); i++) {
@@ -64,5 +65,6 @@ class Neuron {
 
         product += bias * 1; // * 1 because the bias weight.
         recentOutput = product;
+        return product;
     }
 }
