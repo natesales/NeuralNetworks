@@ -78,9 +78,9 @@ public class NeuralNetwork {
      * Takes one pre-categorized example, classifies it, and then learns by modifying the network's weights
      *
      * @param example One pre-categorized example.
-     * @return boolean Did it get it right?
+     * @return Category that it was assigned.
      */
-    boolean learnOneExample(Example example) {
+    int learnOneExample(Example example) {
         int prediction = classifyOneExample(example);
 
         // Calculate error signals
@@ -98,26 +98,30 @@ public class NeuralNetwork {
         }
 
         for (Neuron h : hidden) {
-            double runningErrorSignal;
+            double runningErrorSignal = 0; // TODO: Should this really be 0?
             for (Neuron o : output) {
-                runningErrorSignal += o.errorSignal * outputWeight h -> o;
+                runningErrorSignal += o.errorSignal * o.weights.get(h.index);
             }
 
-            runningErrorSignal *= hiddenResult h * (1 - hiddenResult h);
+            runningErrorSignal *= h.recentOutput * (1 - h.recentOutput);
             h.errorSignal = runningErrorSignal;
         }
 
         // Update the weights
 
         for (Neuron o : output) {
-            o.weights.get(/*TODO*/) = o.weights.get(/*TODO*/) + o.errorSignal * hiddenResult * learningRate;
+            for (Neuron h : hidden) {
+                o.weights.set(h.index, o.weights.get(h.index) + o.errorSignal * h.recentOutput * learningRate);
+            }
         }
 
         for (Neuron h : hidden) {
-            h.weights.get(/*TODO*/) = h.weights.get(/*TODO*/) + h.errorSignal * inputi * learningRate;
+            for (Neuron i : input) {
+                h.weights.set(i.index, h.weights.get(i.index) + h.errorSignal * i.recentOutput * learningRate);
+            }
         }
 
-        return true; // TODO
+        return prediction;
     }
 
     /**
@@ -130,7 +134,9 @@ public class NeuralNetwork {
      * @param epochsBetweenMessages How many epochs will go by before we print out a status message.
      */
     void learnFromExamples(ArrayList<Example> trainingExamples, double providedLearningRate, int desiredSuccessRate, int maxEpochsUntilReboot, int epochsBetweenMessages) {
-        ArrayList<Float> products = new ArrayList<Float>();
+        int correct = 0;
+        int total = 0;
+
         double currentSuccessRate = 0;
         int epochs = 0;
         int epochsUntilNextMessage = epochsBetweenMessages;
@@ -139,17 +145,23 @@ public class NeuralNetwork {
 
         do {
             for (Example examplei : trainingExamples) {   //  repeat for each examplei: (run the perceptron on examplei)
-                learnOneExample(examplei);
+                int predictedCategory = learnOneExample(examplei);
+
+                if (predictedCategory == examplei.category) {
+                    correct++;
+                }
+                total++;
             }
 
             if (epochsUntilNextMessage == 0) {
-                System.out.println(INFO + "Running. Current Success Rate: " + currentSuccessRate);
+                System.out.println(INFO + "Epochs " + epochs + " Current Success Rate: " + currentSuccessRate);
                 epochsUntilNextMessage = epochsBetweenMessages;
             } else {
                 epochsUntilNextMessage--;
             }
 
             if (epochsUntilReboot == 0) { // Then reset everything.
+                System.out.println(FAIL + " Rebooting network at " + epochs + " epochs.");
                 currentSuccessRate = 0;
                 epochs = 0;
                 epochsUntilNextMessage = epochsBetweenMessages;
@@ -168,7 +180,7 @@ public class NeuralNetwork {
      * @param examples The examples.
      */
     void displayTestAccuracy(ArrayList<Example> examples) {
-        System.out.println(INFO + " running..."); //TODO
+        System.out.println(INFO + " running..."); // TODO
     }
 
     /**
@@ -178,8 +190,10 @@ public class NeuralNetwork {
      * @param examples Pre-categorized list of testing examples.
      */
     void learnManyExamples(Example[] examples) {
-        for (Example e : examples) {
-            learnOneExample(e); // TODO
+        while (true) { // TODO
+            for (Example e : examples) {
+                learnOneExample(e);
+            }
         }
     }
 

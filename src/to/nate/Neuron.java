@@ -46,13 +46,6 @@ class Neuron {
     }
 
     /**
-     * Calculates the error signal and assigns it to a field
-     */
-//    void calculateErrorSignal() {
-//        errorSignal = (CorrectResult - ActualResult) * ActualResult * (1 - ActualResult);
-//    }
-
-    /**
      * Calculate the final output
      */
     double calculateResult(ArrayList<Double> providedInputs) { // TODO: Bias needs to be already set.
