@@ -134,8 +134,6 @@ public class NeuralNetwork {
      * @param epochsBetweenMessages How many epochs will go by before we print out a status message.
      */
     void learnFromExamples(ArrayList<Example> trainingExamples, double providedLearningRate, int desiredSuccessRate, int maxEpochsUntilReboot, int epochsBetweenMessages) {
-        int correct = 0;
-        int total = 0;
 
         double currentSuccessRate = 0;
         int epochs = 0;
@@ -144,6 +142,9 @@ public class NeuralNetwork {
         learningRate = providedLearningRate;
 
         do {
+            double correct = 0;
+            double total = 0;
+
             for (Example examplei : trainingExamples) {   //  repeat for each examplei: (run the perceptron on examplei)
                 int predictedCategory = learnOneExample(examplei);
 
@@ -162,7 +163,6 @@ public class NeuralNetwork {
 
             if (epochsUntilReboot == 0) { // Then reset everything.
                 System.out.println(FAIL + " Rebooting network at " + epochs + " epochs.");
-                currentSuccessRate = 0;
                 epochs = 0;
                 epochsUntilNextMessage = epochsBetweenMessages;
                 epochsUntilReboot = maxEpochsUntilReboot;
@@ -171,7 +171,11 @@ public class NeuralNetwork {
             }
 
             epochs++;
-        } while (currentSuccessRate < desiredSuccessRate); // TODO: Update currentSuccessRate
+            currentSuccessRate = correct / total; // Update current success rate
+
+        } while (currentSuccessRate < desiredSuccessRate);
+
+        System.out.println("Training complete with " + epochs + " epochs. Accuracy " + currentSuccessRate * 100 + "%");
     }
 
     /**

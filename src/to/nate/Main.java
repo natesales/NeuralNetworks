@@ -16,6 +16,6 @@ public class Main {
 
         NeuralNetwork net = new NeuralNetwork(2, 2, 2);
 
-        net.learnFromExamples(examples, 1.0, 10, 10, 10);
+        net.learnFromExamples(examples, 1.0, 1, 1000, 100);
     }
 }
