@@ -8,8 +8,8 @@ public class Example {
     int category;
     ArrayList<Double> attributes;
 
-    Example(int providedCategory, List<Double> data) {
-        category = providedCategory;
+    Example(int category, List<Double> data) {
+        this.category = category;
         attributes = new ArrayList<Double>(data);
     }
 }

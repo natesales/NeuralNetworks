@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-
     public static void main(String[] args) {
 
         ArrayList<Example> examples = new ArrayList<Example>();
@@ -16,6 +15,13 @@ public class Main {
 
         NeuralNetwork net = new NeuralNetwork(2, 2, 2);
 
+        System.out.print(Colors.INFO + "Building network...");
+        net.buildNetwork();
+        System.out.println(Colors.SUCCESS);
+
+        System.out.println("Learning...");
         net.learnFromExamples(examples, 1.0, 1, 1000, 100);
+        System.out.println("Learning complete..." + Colors.SUCCESS);
+
     }
 }

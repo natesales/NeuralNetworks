@@ -14,23 +14,10 @@ public class NeuralNetwork {
     private ArrayList<Neuron> hidden = new ArrayList<Neuron>();
     private ArrayList<Neuron> output = new ArrayList<Neuron>();
 
-    static final String ANSI_RESET = "\u001B[0m";
-    static final String ANSI_RED = "\u001B[31m";
-    static final String ANSI_GREEN = "\u001B[32m";
-    static final String ANSI_BLUE = "\u001B[34m";
-
-    static final String INFO = ANSI_BLUE + "[ℹ] " + ANSI_RESET;
-    static final String SUCCESS = ANSI_GREEN + "✓" + ANSI_RESET;
-    static final String FAIL = ANSI_RED + "X" + ANSI_RESET;
-
     NeuralNetwork(int numInputs, int numHiddens, int numOutputs) {
         numInput = numInputs;
         numHidden = numHiddens;
         numOutput = numOutputs;
-
-        System.out.print(INFO + "Building network...");
-        buildNetwork();
-        System.out.println(SUCCESS);
     }
 
     /**
@@ -51,13 +38,14 @@ public class NeuralNetwork {
         for (Neuron outputi : output) {
             outputOutputs.add(outputi.calculateResult(hiddenOutputs));
         }
-
+        
         double biggestOutputSoFar = Double.NEGATIVE_INFINITY;
         int biggestCategorySoFar = 0;
+
         for (double output : outputOutputs) {
             if (output > biggestOutputSoFar) {
                 biggestOutputSoFar = output;
-                biggestCategorySoFar = example.category;
+                biggestCategorySoFar = output.index;
             }
         }
 
@@ -155,14 +143,14 @@ public class NeuralNetwork {
             }
 
             if (epochsUntilNextMessage == 0) {
-                System.out.println(INFO + "Epochs " + epochs + " Current Success Rate: " + currentSuccessRate);
+                System.out.println(Colors.INFO + "Epochs " + epochs + " Current Success Rate: " + currentSuccessRate);
                 epochsUntilNextMessage = epochsBetweenMessages;
             } else {
                 epochsUntilNextMessage--;
             }
 
             if (epochsUntilReboot == 0) { // Then reset everything.
-                System.out.println(FAIL + " Rebooting network at " + epochs + " epochs.");
+                System.out.println(Colors.FAIL + " Rebooting network at " + epochs + " epochs.");
                 epochs = 0;
                 epochsUntilNextMessage = epochsBetweenMessages;
                 epochsUntilReboot = maxEpochsUntilReboot;
@@ -175,7 +163,7 @@ public class NeuralNetwork {
 
         } while (currentSuccessRate < desiredSuccessRate);
 
-        System.out.println("Training complete with " + epochs + " epochs. Accuracy " + currentSuccessRate * 100 + "%");
+        System.out.println(Colors.INFO + " Training complete with " + epochs + " epochs. Accuracy " + currentSuccessRate * 100 + "%");
     }
 
     /**
@@ -184,7 +172,7 @@ public class NeuralNetwork {
      * @param examples The examples.
      */
     void displayTestAccuracy(ArrayList<Example> examples) {
-        System.out.println(INFO + " running..."); // TODO
+        System.out.println(Colors.INFO + " running..."); // TODO
     }
 
     /**
@@ -215,7 +203,7 @@ public class NeuralNetwork {
     /**
      * Build the network, using numInputs, numHidden, and numOutputs.
      */
-    private void buildNetwork() {
+    public void buildNetwork() {
         for (int i = 0; i < numInput; i++) {
             input.add(new Neuron(0, i)); // Fill up with empty neurons
         }
