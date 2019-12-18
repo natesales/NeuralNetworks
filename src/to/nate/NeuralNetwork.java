@@ -1,6 +1,7 @@
 package to.nate;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NeuralNetwork {
 
@@ -10,9 +11,11 @@ public class NeuralNetwork {
     private int numHidden; // Neurons
     private int numOutput; // Neurons
 
-    private ArrayList<Neuron> input = new ArrayList<Neuron>();
-    private ArrayList<Neuron> hidden = new ArrayList<Neuron>();
-    private ArrayList<Neuron> output = new ArrayList<Neuron>();
+//    private ArrayList<Neuron> input;
+    private ArrayList<Neuron> hidden;
+    private ArrayList<Neuron> output;
+
+    Random r = new Random();
 
     NeuralNetwork(int numInputs, int numHiddens, int numOutputs) {
         numInput = numInputs;
@@ -38,17 +41,17 @@ public class NeuralNetwork {
         for (Neuron outputi : output) {
             outputOutputs.add(outputi.calculateResult(hiddenOutputs));
         }
-        
+
         double biggestOutputSoFar = Double.NEGATIVE_INFINITY;
         int biggestCategorySoFar = 0;
 
-        for (double output : outputOutputs) {
-            if (output > biggestOutputSoFar) {
-                biggestOutputSoFar = output;
-                biggestCategorySoFar = output.index;
+        for (int i = 0; i < outputOutputs.size(); i++) {
+            if (outputOutputs.get(i) > biggestOutputSoFar) {
+                biggestOutputSoFar = outputOutputs.get(i);
+                biggestCategorySoFar = i;
             }
         }
-
+    
         return biggestCategorySoFar; // In reality this isn't the biggest category SO FAR, it's the biggest category of all.
     }
 
@@ -86,7 +89,7 @@ public class NeuralNetwork {
         }
 
         for (Neuron h : hidden) {
-            double runningErrorSignal = 0; // TODO: Should this really be 0?
+            double runningErrorSignal = 0;
             for (Neuron o : output) {
                 runningErrorSignal += o.errorSignal * o.weights.get(h.index);
             }
@@ -97,16 +100,24 @@ public class NeuralNetwork {
 
         // Update the weights
 
+        //noinspection DuplicatedCode
         for (Neuron o : output) {
-            for (Neuron h : hidden) {
+            for (Neuron h : hidden) { // TODO: 12/18/19 Move this to the Neuron class 
                 o.weights.set(h.index, o.weights.get(h.index) + o.errorSignal * h.recentOutput * learningRate);
             }
+
+            // Bias recent (and only) output is 1
+            o.bias += o.errorSignal * 1 * learningRate;
         }
 
+        //noinspection DuplicatedCode
         for (Neuron h : hidden) {
-            for (Neuron i : input) {
-                h.weights.set(i.index, h.weights.get(i.index) + h.errorSignal * i.recentOutput * learningRate);
+            for (int i = 0; i < numInput; i++) {
+                h.weights.set(i, h.weights.get(i) + h.errorSignal * example.attributes.get(i) * learningRate);
             }
+
+            // Bias recent (and only) output is 1
+            h.bias += h.errorSignal * 1 * learningRate;
         }
 
         return prediction;
@@ -174,29 +185,16 @@ public class NeuralNetwork {
     void displayTestAccuracy(ArrayList<Example> examples) {
         System.out.println(Colors.INFO + " running..."); // TODO
     }
-
-    /**
-     * Takes a list of pre-categorized training examples (and maybe a list of pre-categorized validation examples), and a desired accuracy and/or time limit.
-     * It repeatedly learns from the training examples until a termination condition is reached.
-     *
-     * @param examples Pre-categorized list of testing examples.
-     */
-    void learnManyExamples(Example[] examples) {
-        while (true) { // TODO
-            for (Example e : examples) {
-                learnOneExample(e);
-            }
-        }
-    }
+    
 
     /**
      * Initialize weights to small random values (say, ± 0.05)
      *
      * @param neurons ArrayList of neurons
      */
-    private static void initRandWeights(ArrayList<Neuron> neurons) {
+    private void initRandWeights(ArrayList<Neuron> neurons) {
         for (Neuron neuron : neurons) {
-            neuron.initRandWeights();
+            neuron.initRandWeights(r);
         }
     }
 
@@ -204,9 +202,13 @@ public class NeuralNetwork {
      * Build the network, using numInputs, numHidden, and numOutputs.
      */
     public void buildNetwork() {
-        for (int i = 0; i < numInput; i++) {
-            input.add(new Neuron(0, i)); // Fill up with empty neurons
-        }
+//        input = new ArrayList<Neuron>();
+        hidden = new ArrayList<Neuron>();
+        output = new ArrayList<Neuron>();
+        
+//        for (int i = 0; i < numInput; i++) {
+//            input.add(new Neuron(0, i)); // Fill up with empty neurons
+//        }
 
         for (int i = 0; i < numHidden; i++) {
             hidden.add(new Neuron(numInput, i)); // Fill up with empty neurons

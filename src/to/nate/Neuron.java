@@ -35,20 +35,21 @@ class Neuron {
     /**
      * Initialize weights to small random values (say, ± 0.05)
      */
-    void initRandWeights() {
+    void initRandWeights(Random r) {
         final double min = -0.05;
         final double max = 0.05;
 
-        Random r = new Random();
         for (int i = 0; i < inputLength; i++) {
             weights.add(min + (max - min) * r.nextDouble());
         }
+
+        bias = min + (max - min) * r.nextDouble();
     }
 
     /**
      * Calculate the final output
      */
-    double calculateResult(ArrayList<Double> providedInputs) { // TODO: Bias needs to be already set.
+    double calculateResult(ArrayList<Double> providedInputs) {
         inputs = providedInputs;
         double product = 0;
 
@@ -56,7 +57,7 @@ class Neuron {
             product += weights.get(i) * inputs.get(i);
         }
 
-        product += bias * 1; // * 1 because the bias weight.
+        product += bias * 1; // * 1 because the bias value.
         recentOutput = product;
         return product;
     }

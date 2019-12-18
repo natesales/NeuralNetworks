@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
+
+    private static void testAND() {
 
         ArrayList<Example> examples = new ArrayList<Example>();
 
@@ -20,8 +21,14 @@ public class Main {
         System.out.println(Colors.SUCCESS);
 
         System.out.println("Learning...");
-        net.learnFromExamples(examples, 1.0, 1, 1000, 100);
+        net.learnFromExamples(examples, 1.0, 1, 100000, 5000);
         System.out.println("Learning complete..." + Colors.SUCCESS);
 
+    }
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            testAND();
+        }
     }
 }
