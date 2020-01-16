@@ -6,7 +6,7 @@ import java.util.Random;
 class Neuron {
 
     double recentOutput;
-    double errorSignal; // Error Signal
+    double errorSignal;
     double bias;
 
     int inputLength;
@@ -58,7 +58,7 @@ class Neuron {
         }
 
         product += bias * 1; // * 1 because the bias value.
-        recentOutput = product;
-        return product;
+        recentOutput = activation(product);
+        return recentOutput;
     }
 }

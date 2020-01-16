@@ -11,16 +11,34 @@ public class NeuralNetwork {
     private int numHidden; // Neurons
     private int numOutput; // Neurons
 
-//    private ArrayList<Neuron> input;
+    //    private ArrayList<Neuron> input;
     private ArrayList<Neuron> hidden;
     private ArrayList<Neuron> output;
 
     Random r = new Random();
 
-    NeuralNetwork(int numInputs, int numHiddens, int numOutputs) {
+    public NeuralNetwork(int numInputs, int numHiddens, int numOutputs) {
         numInput = numInputs;
         numHidden = numHiddens;
         numOutput = numOutputs;
+
+        buildNetwork();
+    }
+
+    public void buildNetwork() {
+        hidden = new ArrayList<Neuron>();
+        output = new ArrayList<Neuron>();
+
+        for (int i = 0; i < numHidden; i++) {
+            hidden.add(new Neuron(numInput, i)); // Fill up with empty neurons
+        }
+
+        for (int i = 0; i < numOutput; i++) {
+            output.add(new Neuron(numHidden, i)); // Fill up with empty neurons
+        }
+
+        initRandWeights(hidden);
+        initRandWeights(output);
     }
 
     /**
@@ -51,7 +69,7 @@ public class NeuralNetwork {
                 biggestCategorySoFar = i;
             }
         }
-    
+
         return biggestCategorySoFar; // In reality this isn't the biggest category SO FAR, it's the biggest category of all.
     }
 
@@ -62,7 +80,18 @@ public class NeuralNetwork {
      * @return percent of accuracy
      */
     double calculateAccuracy(ArrayList<Example> examples) {
-        return 0.5; // TODO
+        int correct = 0;
+        int total = 0;
+
+        for (Example e : examples) {
+            if (e.category == e.category) {
+                correct++;
+            }
+
+            total++;
+        }
+
+        return correct / total;
     }
 
     /**
@@ -102,7 +131,7 @@ public class NeuralNetwork {
 
         //noinspection DuplicatedCode
         for (Neuron o : output) {
-            for (Neuron h : hidden) { // TODO: 12/18/19 Move this to the Neuron class 
+            for (Neuron h : hidden) {
                 o.weights.set(h.index, o.weights.get(h.index) + o.errorSignal * h.recentOutput * learningRate);
             }
 
@@ -132,7 +161,7 @@ public class NeuralNetwork {
      * @param maxEpochsUntilReboot  How many epochs will go by before we reset everything.
      * @param epochsBetweenMessages How many epochs will go by before we print out a status message.
      */
-    void learnFromExamples(ArrayList<Example> trainingExamples, double providedLearningRate, int desiredSuccessRate, int maxEpochsUntilReboot, int epochsBetweenMessages) {
+    public void learnFromExamples(ArrayList<Example> trainingExamples, double providedLearningRate, double desiredSuccessRate, int maxEpochsUntilReboot, int epochsBetweenMessages) {
 
         double currentSuccessRate = 0;
         int epochs = 0;
@@ -147,11 +176,16 @@ public class NeuralNetwork {
             for (Example examplei : trainingExamples) {   //  repeat for each examplei: (run the perceptron on examplei)
                 int predictedCategory = learnOneExample(examplei);
 
+//                System.out.println("Real category: " + examplei.category + ", Predicted: " + predictedCategory);
+
                 if (predictedCategory == examplei.category) {
                     correct++;
                 }
                 total++;
             }
+
+            epochs++;
+            currentSuccessRate = correct / total; // Update current success rate
 
             if (epochsUntilNextMessage == 0) {
                 System.out.println(Colors.INFO + "Epochs " + epochs + " Current Success Rate: " + currentSuccessRate);
@@ -165,12 +199,12 @@ public class NeuralNetwork {
                 epochs = 0;
                 epochsUntilNextMessage = epochsBetweenMessages;
                 epochsUntilReboot = maxEpochsUntilReboot;
+
+                buildNetwork();
+
             } else {
                 epochsUntilReboot--;
             }
-
-            epochs++;
-            currentSuccessRate = correct / total; // Update current success rate
 
         } while (currentSuccessRate < desiredSuccessRate);
 
@@ -185,7 +219,7 @@ public class NeuralNetwork {
     void displayTestAccuracy(ArrayList<Example> examples) {
         System.out.println(Colors.INFO + " running..."); // TODO
     }
-    
+
 
     /**
      * Initialize weights to small random values (say, ± 0.05)
@@ -198,27 +232,4 @@ public class NeuralNetwork {
         }
     }
 
-    /**
-     * Build the network, using numInputs, numHidden, and numOutputs.
-     */
-    public void buildNetwork() {
-//        input = new ArrayList<Neuron>();
-        hidden = new ArrayList<Neuron>();
-        output = new ArrayList<Neuron>();
-        
-//        for (int i = 0; i < numInput; i++) {
-//            input.add(new Neuron(0, i)); // Fill up with empty neurons
-//        }
-
-        for (int i = 0; i < numHidden; i++) {
-            hidden.add(new Neuron(numInput, i)); // Fill up with empty neurons
-        }
-
-        for (int i = 0; i < numOutput; i++) {
-            output.add(new Neuron(numHidden, i)); // Fill up with empty neurons
-        }
-
-        initRandWeights(hidden);
-        initRandWeights(output);
-    }
 }
