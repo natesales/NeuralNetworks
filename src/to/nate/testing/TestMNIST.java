@@ -1,6 +1,8 @@
 package to.nate.testing;
 
+import to.nate.Colors;
 import to.nate.Example;
+import to.nate.NeuralNetwork;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,8 +10,16 @@ import java.util.List;
 
 public class TestMNIST {
     public static void main(String[] args) {
-        List<Example> trainingExamples = readData("train-labels-idx1-ubyte", "train-images-idx3-ubyte");
-        List<Example> testingExamples = readData("t10k-labels-idx1-ubyte", "t10k-images-idx3-ubyte");
+
+        NeuralNetwork net = new NeuralNetwork(28*28, 100, 10);
+
+        List<Example> trainingExamples = readData("data/train-labels.idx1-ubyte", "data/train-images.idx3-ubyte");
+
+        System.out.println("Learning...");
+        net.learnFromExamples((ArrayList<Example>) trainingExamples, 0.05, 1, 500, 0);
+        System.out.println("Learning complete..." + Colors.SUCCESS);
+
+//        List<Example> testingExamples = readData("t10k-labels.idx1-ubyte", "t10k-images.idx3-ubyte");
     }
 
     static List<Example> readData(String labelFileName, String imageFileName) {

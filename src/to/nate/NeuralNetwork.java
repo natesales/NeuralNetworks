@@ -80,11 +80,14 @@ public class NeuralNetwork {
      * @return percent of accuracy
      */
     double calculateAccuracy(ArrayList<Example> examples) {
-        int correct = 0;
-        int total = 0;
+        double correct = 0;
+        double total = 0;
+
 
         for (Example e : examples) {
-            if (e.category == e.category) {
+            int real = classifyOneExample(e);
+
+            if (real == e.category) {
                 correct++;
             }
 
@@ -182,7 +185,12 @@ public class NeuralNetwork {
                     correct++;
                 }
                 total++;
+
+                if (total % 10000 == 0){
+                    System.out.println("Current total: " + total);
+                }
             }
+
 
             epochs++;
             currentSuccessRate = correct / total; // Update current success rate
