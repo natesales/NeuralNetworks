@@ -15,7 +15,7 @@ I was able to consistently achieve 100% accuracy in
 | AND                | 19     | 0.04           | 100                  | 100                   | 10            | 10            |
 | XOR                | 2500   | 0.05           | 100                  | 100                   | 10            | 0.3           |
 | Handwritten Digits | 184    | 45             | 96.4                 | 99.9                  | 20            | 0.01          |
-| MNIST              |        |                |                      |                       |               |               |
+| MNIST              | 5      | 485            | 94.9                 | 95.1                  | 150           | 0.05          |
 
 
 For XOR, I was able to consistently achieve 100% accuracy in under 3,000 epochs with a learning rate of 0.3 and 10 hidden layers.

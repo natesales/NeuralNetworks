@@ -5,17 +5,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/NeuralNetwork.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/NeuralNetwork.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestAND.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestAND.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestHandWritten.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestHandWritten.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestMNIST.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestMNIST.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestXOR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestXOR.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/to/nate/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/to/nate/NeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/NeuralNetwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestAND.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestAND.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestHandWritten.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestHandWritten.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestMNIST.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestMNIST.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestXOR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestXOR.java" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -208,6 +203,7 @@
       <workItem from="1579282706723" duration="5509000" />
       <workItem from="1579300371453" duration="8035000" />
       <workItem from="1579383254549" duration="627000" />
+      <workItem from="1579401130088" duration="1044000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <created>1575485414441</created>

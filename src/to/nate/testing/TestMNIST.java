@@ -11,13 +11,13 @@ import java.util.List;
 public class TestMNIST {
     public TestMNIST() {
 
-        final int hidden = 100;
+        final int hidden = 150;
         final double learningRate = 0.05;
 
         NeuralNetwork net = new NeuralNetwork(28*28, hidden, 10);
 
         List<Example> trainingExamples = readData("data/train-labels.idx1-ubyte", "data/train-images.idx3-ubyte");
-        List<Example> testingExamples = readData("t10k-labels.idx1-ubyte", "t10k-images.idx3-ubyte");
+        List<Example> testingExamples = readData("data/t10k-labels.idx1-ubyte", "data/t10k-images.idx3-ubyte");
 
 
         System.out.println("Learning MNIST with " + hidden + " hidden and " + learningRate + " as a learning rate.");
@@ -34,7 +34,7 @@ public class TestMNIST {
 
     }
 
-    static List<Example> readData(String labelFileName, String imageFileName) {
+    private static List<Example> readData(String labelFileName, String imageFileName) {
         DataInputStream labelStream = openFile(labelFileName, 2049);
         DataInputStream imageStream = openFile(imageFileName, 2051);
 
@@ -67,7 +67,7 @@ public class TestMNIST {
         return examples;
     }
 
-    static DataInputStream openFile(String fileName, int expectedMagicNumber) {
+    private static DataInputStream openFile(String fileName, int expectedMagicNumber) {
         DataInputStream stream = null;
         try {
             stream = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName)));
