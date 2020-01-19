@@ -9,17 +9,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestMNIST {
-    public static void main(String[] args) {
+    public TestMNIST() {
 
-        NeuralNetwork net = new NeuralNetwork(28*28, 100, 10);
+        final int hidden = 100;
+        final double learningRate = 0.05;
+
+        NeuralNetwork net = new NeuralNetwork(28*28, hidden, 10);
 
         List<Example> trainingExamples = readData("data/train-labels.idx1-ubyte", "data/train-images.idx3-ubyte");
+        List<Example> testingExamples = readData("t10k-labels.idx1-ubyte", "t10k-images.idx3-ubyte");
 
-        System.out.println("Learning...");
-        net.learnFromExamples((ArrayList<Example>) trainingExamples, 0.05, 1, 500, 0);
+
+        System.out.println("Learning MNIST with " + hidden + " hidden and " + learningRate + " as a learning rate.");
+
+        long start = System.currentTimeMillis();
+        net.learnFromExamples((ArrayList<Example>) trainingExamples, learningRate, 0.95, 500, 0);
+        long end = System.currentTimeMillis();
+        System.out.println(Colors.SUCCESS + " Learning finished in " + (end - start)*0.001 + " s");
+
         System.out.println("Learning complete..." + Colors.SUCCESS);
 
-//        List<Example> testingExamples = readData("t10k-labels.idx1-ubyte", "t10k-images.idx3-ubyte");
+        System.out.println("Testing accuracy: " + net.calculateAccuracy((ArrayList<Example>) testingExamples));
+
+
     }
 
     static List<Example> readData(String labelFileName, String imageFileName) {

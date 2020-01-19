@@ -79,7 +79,7 @@ public class NeuralNetwork {
      * @param examples Pre-categorized list of testing examples.
      * @return percent of accuracy
      */
-    double calculateAccuracy(ArrayList<Example> examples) {
+    public double calculateAccuracy(ArrayList<Example> examples) {
         double correct = 0;
         double total = 0;
 

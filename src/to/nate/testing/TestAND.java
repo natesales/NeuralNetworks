@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestAND {
-    TestAND() {
+    public TestAND() {
+
+        final int hidden = 10;
+        final double learningRate = 10;
 
         ArrayList<Example> examples = new ArrayList<Example>();
 
@@ -17,10 +20,13 @@ public class TestAND {
         examples.add(new Example(0, Arrays.asList(1d, 0d)));
         examples.add(new Example(1, Arrays.asList(1d, 1d)));
 
-        NeuralNetwork net = new NeuralNetwork(2, 2, 2);
+        NeuralNetwork net = new NeuralNetwork(2, hidden, 2);
 
-        System.out.println("Learning...");
-        net.learnFromExamples(examples, 1.0, 1, 500, 1);
+        System.out.println("Learning AND with " + hidden + " hidden and " + learningRate + " as a learning rate.");
+        long start = System.currentTimeMillis();
+        net.learnFromExamples(examples, learningRate, 1, 500, 1);
+        long end = System.currentTimeMillis();
+        System.out.println(Colors.SUCCESS + " Learning finished in " + (end - start) * 0.001 + " s");
         System.out.println("Learning complete..." + Colors.SUCCESS);
 
     }

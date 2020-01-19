@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c02385e3-9e5f-432c-a8c6-3080cc9bae3a" name="Default Changelist" comment="">
+    <list default="true" id="c02385e3-9e5f-432c-a8c6-3080cc9bae3a" name="Default Changelist" comment="It's working, but not rebooting.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/NeuralNetwork.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/NeuralNetwork.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestAND.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestAND.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestMNIST.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestMNIST.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestXOR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/NeuralNetworks/to/nate/testing/TestXOR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/NeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/NeuralNetwork.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestAND.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestAND.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestHandWritten.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestHandWritten.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestMNIST.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestMNIST.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/to/nate/testing/TestXOR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/to/nate/testing/TestXOR.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +86,19 @@
       <command value="ls" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestMNIST">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="to.nate.Main" />
       <module name="NeuralNetworks" />
@@ -123,18 +147,6 @@
         <item itemvalue="Application.TestMnist" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
